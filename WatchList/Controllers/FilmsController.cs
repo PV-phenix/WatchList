@@ -241,6 +241,7 @@ namespace WatchList.Controllers
             await _contexte.SaveChangesAsync();
             // et renvoyer notre valeur de retour (-1, 0 ou 1) au script qui a appelé
             // cette méthode depuis la page Index
+            
             return Json(val);
         }
 

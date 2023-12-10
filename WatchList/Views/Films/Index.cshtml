@@ -55,18 +55,25 @@
             $('.btn').click(function (e) {
                 var btn = $(this);
                 var idFilm = btn.attr('id');
-                var valFilm = btn.attr('presentDansListe-val') == "True" ? 1 : 0;
+                var valFilm = btn.attr('data-val') == "True" ? 1 : 0;
                 $.get('/Films/AjouterSupprimer?id=' + idFilm + '&val=' + valFilm,
-                    function (data) {
-                        if (data == 0) {
-                            btn.attr('presentDansListe-val', 'False');
-                            btn.html(' + ');
+                        function (data) 
+                        {
+                            if (data == 0) 
+                            {
+                                btn.attr('PresentDansListe-val', 'False');
+                                btn.html(' + ');
+                            }
+                            else if (data == 1) 
+                            {
+                                btn.attr('PresentDansListe-val', 'True');
+                                btn.html(' - ');
+                            }
                         }
-                        else if (data == 1) {
-                            btn.attr('presentDansListe-val', 'True');
-                            btn.html(' - ');
-                        }
-                    });
+                 );
+                btn.finish();
+                item.PresentDansListe).finish
+
             });
 
         });
