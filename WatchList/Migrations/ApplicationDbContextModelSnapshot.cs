@@ -239,6 +239,10 @@ namespace WatchList.Migrations
                     b.Property<int>("Annee")
                         .HasColumnType("int");
 
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Titre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -292,6 +296,9 @@ namespace WatchList.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Commentaire")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Genre")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Note")

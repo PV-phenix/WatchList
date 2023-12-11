@@ -16,6 +16,9 @@
                 @Html.DisplayNameFor(model => model.Annee)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Vu)
             </th>
             <th>
@@ -24,8 +27,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Commentaire)
             </th>
-            
-            
         </tr>
     </thead>
     <tbody>
@@ -37,7 +38,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Annee)
             </td>
-
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Vu)
             </td>

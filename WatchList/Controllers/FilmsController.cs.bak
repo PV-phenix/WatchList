@@ -56,7 +56,7 @@ namespace WatchList.Controllers
                 return NotFound();
             }
 
-            return View(film);
+            return View(film);,
         }
 
         // GET: Films/Create
@@ -102,7 +102,7 @@ namespace WatchList.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Titre,Annee")] Film film)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Titre,Annee,Genre")] Film film)
         {
             if (id != film.Id)
             {

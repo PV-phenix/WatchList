@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WatchList.Migrations
 {
     /// <inheritdoc />
-    public partial class mssqllocal_migration_191 : Migration
+    public partial class mssqllocal_migration_587 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,7 +59,8 @@ namespace WatchList.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Titre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Annee = table.Column<int>(type: "int", nullable: false)
+                    Annee = table.Column<int>(type: "int", nullable: false),
+                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,6 +74,7 @@ namespace WatchList.Migrations
                     IdFilm = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Titre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Annee = table.Column<int>(type: "int", nullable: false),
                     PresentDansListe = table.Column<bool>(type: "bit", nullable: false),
                     Vu = table.Column<bool>(type: "bit", nullable: false),

@@ -19,6 +19,9 @@
                 @Html.DisplayNameFor(model => model.Annee)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.PresentDansListe)
             </th>
             <th></th>
@@ -34,11 +37,14 @@
                 @Html.DisplayFor(modelItem => item.Annee)
             </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PresentDansListe)
-                    <button id="@item.IdFilm" data-val="@item.PresentDansListe" class="btn">
-                        @(item.PresentDansListe ? " - " : " + ")
-                    </button>
+                    @Html.DisplayFor(modelItem => item.Genre)
                 </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PresentDansListe)
+                <button id="@item.IdFilm" data-val="@item.PresentDansListe" class="btn">
+                    @(item.PresentDansListe ? " - " : " + ")
+                </button>
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdFilm">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.IdFilm">Details</a> |
@@ -61,18 +67,16 @@
                         {
                             if (data == 0) 
                             {
-                                btn.attr('PresentDansListe-val', 'False');
+                            btn.attr('data-val', 'False');
                                 btn.html(' + ');
                             }
                             else if (data == 1) 
                             {
-                                btn.attr('PresentDansListe-val', 'True');
+                            btn.attr('data-val', 'True');
                                 btn.html(' - ');
                             }
                         }
                  );
-                btn.finish();
-                item.PresentDansListe).finish
 
             });
 

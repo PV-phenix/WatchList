@@ -12,8 +12,8 @@ using WatchList.Data;
 namespace WatchList.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231209111959_mssql.local_migration_191")]
-    partial class mssqllocal_migration_191
+    [Migration("20231211142138_mssql.local_migration_587")]
+    partial class mssqllocal_migration_587
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -242,6 +242,10 @@ namespace WatchList.Migrations
                     b.Property<int>("Annee")
                         .HasColumnType("int");
 
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Titre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -295,6 +299,9 @@ namespace WatchList.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Commentaire")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Genre")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Note")
