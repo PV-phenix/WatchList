@@ -1,6 +1,6 @@
 ﻿namespace ListeFilms.Data
 {
-    public class Utilisateur
+    public class Utilisateur : Microsoft.AspNetCore.Identity.IdentityUser
     {
         public Utilisateur() : base() { this.ListeFilms = new HashSet<FilmUtilisateur>(); }
 

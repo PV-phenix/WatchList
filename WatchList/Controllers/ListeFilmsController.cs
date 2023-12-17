@@ -26,10 +26,7 @@ namespace WatchList.Controllers
             Utilisateur utilisateur = await GetCurrentUserAsync();
             return utilisateur?.Id;
         }
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
+
 
         public async Task<IActionResult> Index()
         {

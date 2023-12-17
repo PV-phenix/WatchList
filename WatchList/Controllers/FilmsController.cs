@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Humanizer.Localisation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using WatchList.Data;
 using WatchList.Models;
 
@@ -34,17 +38,17 @@ namespace WatchList.Controllers
         private Task<Utilisateur> GetCurrentUserAsync() => _gestionnaire.GetUserAsync(HttpContext.User);
 
         // GET: Films
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id, string? searchString)
         {
 
             var idUtilisateur = await RecupererIdUtilisateurCourant();
             var modele = await _contexte.Films.Select(x =>
                     new ModeleVueFilm
                     {
-                        IdFilm = x.Id,
-                        Titre = x.Titre,
-                        Annee = x.Annee,
-                        Genre = x.Genre,
+                            IdFilm = x.Id,
+                            Titre = x.Titre,
+                            Annee = x.Annee,
+                            Genre = x.Genre,
                     }).ToListAsync();
             foreach (var item in modele)
             {
@@ -57,11 +61,35 @@ namespace WatchList.Controllers
                     item.Vu = m.Vu;
                 }
             }
+            if (_contexte.Films == null)
+            {
+                return Problem("Entity set '_contexte.Films'  is null.");
+            }
+
+            //var movies = from m in _contexte.Films
+            //             select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var model = await _contexte.Films.Where(s => s.Titre.Contains(searchString)).ToListAsync();
+
+                ObservableCollection<ModeleVueFilm> films = new ObservableCollection<ModeleVueFilm>();
+
+
+                foreach (Film f in model)
+                {
+                    films.Add(new ModeleVueFilm { IdFilm = f.Id, Titre = f.Titre, Annee= f.Annee, Genre = f.Genre });
+                }
+                
+
+                return View(films);
+            }
+
+            
+            else
 
             return View(modele);
-            //return _contexte.Films != null ?
-            //              View(await _contexte.Films.ToListAsync()) :
-            //              Problem("Entity set 'ApplicationDbContext.Films'  is null.");
+
         }
 
         // GET: Films/Details/5
@@ -200,7 +228,7 @@ namespace WatchList.Controllers
         [HttpGet]
         public async Task<JsonResult> AjouterSupprimer(int id,int val)
         {
-            
+                
             var idUtilisateur = await RecupererIdUtilisateurCourant();
             if (val == 1)
             {
@@ -245,6 +273,24 @@ namespace WatchList.Controllers
             
             return Json(val);
         }
+
+        //public async Task<IActionResult> Index(string searchString,bool notUsed )
+        //{
+        //    if (_contexte.Films == null)
+        //    {
+        //        return Problem("Entity set '_contexte.Films'  is null.");
+        //    }
+
+        //    var movies = from m in _contexte.Films
+        //                 select m;
+
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+        //        movies = movies.Where(s => s.Titre!.Contains(searchString));
+        //    }
+
+        //    return View(await movies.ToListAsync());
+        //}
 
     }
 }

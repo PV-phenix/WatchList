@@ -9,10 +9,19 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-controller="Films" asp-action="Index">
+    <p>
+        Titre: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+        <a asp-action="Index">Retour vers la liste complète des films</a>
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
+              <th>
                 @Html.DisplayNameFor(model => model.Titre)
             </th>
             <th>
@@ -28,34 +37,36 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Annee)
-            </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Genre)
-                </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PresentDansListe)
-                <button id="@item.IdFilm" data-val="@item.PresentDansListe" class="btn">
-                    @(item.PresentDansListe ? " - " : " + ")
-                </button>
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdFilm">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdFilm">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdFilm">Delete</a>|
+        @foreach (var item in Model) 
+        {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Titre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Annee)
+                    </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Genre)
+                        </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PresentDansListe)
+                        <button id="@item.IdFilm" data-val="@item.PresentDansListe" class="btn">
+                            @(item.PresentDansListe ? " - " : " + ")
+                        </button>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.IdFilm">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.IdFilm">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.IdFilm">Delete</a>|
                 
-            </td>
-        </tr>
-}
+                    </td>
+                </tr>
+        }
     </tbody>
 </table>
-@section Scripts {
+@section Scripts 
+{
     <script>
         jQuery(document).ready(function () {
             $('.btn').click(function (e) {
@@ -84,4 +95,5 @@
 
     </script>
 
-}
+}   
+
