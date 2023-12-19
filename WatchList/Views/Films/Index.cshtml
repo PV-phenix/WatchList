@@ -1,34 +1,40 @@
 ﻿@model IEnumerable<WatchList.Models.ModeleVueFilm>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Liste des films";
 }
 
-<h1>Index</h1>
+<h1>Liste des films</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Ajouter un film</a>
 </p>
 
 <form asp-controller="Films" asp-action="Index">
     <p>
         Titre: <input type="text" name="SearchString" />
-        <input type="submit" value="Filter" />
-        <a asp-action="Index">Retour vers la liste complète des films</a>
+        <input type="submit" value="Filtrer" />
+        <a asp-action="Index"> Retour vers la liste complète des films</a>
     </p>
 </form>
 
 <table class="table">
     <thead>
         <tr>
-              <th>
-                @Html.DisplayNameFor(model => model.Titre)
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TitreSortParm"]">@Html.DisplayNameFor(model => model.Titre)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Annee)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["AnneeSortParm"]">@Html.DisplayNameFor(model => model.Annee)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Genre)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["GenreSortParm"]">@Html.DisplayNameFor(model => model.Genre)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ProductSortParm"]">@Html.DisplayNameFor(model => model.Producteur)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ActSortParm"]">@Html.DisplayNameFor(model => model.Acteurs)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PresentDansListe)
@@ -46,9 +52,15 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Annee)
                     </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Genre)
-                        </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producteur)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Acteurs)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.PresentDansListe)
                         <button id="@item.IdFilm" data-val="@item.PresentDansListe" class="btn">

@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WatchList", "WatchList\Watc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListeFilms", "ListeFilms\ListeFilms.csproj", "{4A84B802-C618-43AD-96B0-3362C69935DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcMovie", "MvcMovie\MvcMovie.csproj", "{068FE228-EE1F-4DFB-8544-6E83F1F5679D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{4A84B802-C618-43AD-96B0-3362C69935DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A84B802-C618-43AD-96B0-3362C69935DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A84B802-C618-43AD-96B0-3362C69935DD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{068FE228-EE1F-4DFB-8544-6E83F1F5679D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{068FE228-EE1F-4DFB-8544-6E83F1F5679D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{068FE228-EE1F-4DFB-8544-6E83F1F5679D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{068FE228-EE1F-4DFB-8544-6E83F1F5679D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

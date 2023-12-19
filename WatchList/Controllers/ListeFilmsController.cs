@@ -38,6 +38,8 @@ namespace WatchList.Controllers
                 Titre = x.Film.Titre,
                 Annee = x.Film.Annee,
                 Genre = x.Film.Genre,
+                Producteur = x.Film.Producteur,
+                Acteurs = x.Film.Acteurs,
                 Vu = x.Vu,
                 PresentDansListe = true,
                 Note = x.Note,

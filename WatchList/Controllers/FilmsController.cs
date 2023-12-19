@@ -38,7 +38,7 @@ namespace WatchList.Controllers
         private Task<Utilisateur> GetCurrentUserAsync() => _gestionnaire.GetUserAsync(HttpContext.User);
 
         // GET: Films
-        public async Task<IActionResult> Index(int? id, string? searchString)
+        public async Task<IActionResult> Index(string sortOrder, string? searchString)
         {
 
             var idUtilisateur = await RecupererIdUtilisateurCourant();
@@ -49,6 +49,8 @@ namespace WatchList.Controllers
                             Titre = x.Titre,
                             Annee = x.Annee,
                             Genre = x.Genre,
+                            Producteur = x.Producteur,
+                            Acteurs = x.Acteurs
                     }).ToListAsync();
             foreach (var item in modele)
             {
@@ -73,21 +75,78 @@ namespace WatchList.Controllers
             {
                 var model = await _contexte.Films.Where(s => s.Titre.Contains(searchString)).ToListAsync();
 
-                ObservableCollection<ModeleVueFilm> films = new ObservableCollection<ModeleVueFilm>();
+                ObservableCollection<ModeleVueFilm> Searchfilms = new ObservableCollection<ModeleVueFilm>();
 
 
                 foreach (Film f in model)
                 {
-                    films.Add(new ModeleVueFilm { IdFilm = f.Id, Titre = f.Titre, Annee= f.Annee, Genre = f.Genre });
+                    Searchfilms.Add(new ModeleVueFilm { IdFilm = f.Id, Titre = f.Titre, Annee = f.Annee, Genre = f.Genre, Producteur = f.Producteur, Acteurs = f.Acteurs });
                 }
-                
 
-                return View(films);
+
+                return View(Searchfilms);
+             }
+
+            ViewData["TitreSortParm"] = String.IsNullOrEmpty(sortOrder) ? "titre_desc" : "";
+            ViewData["AnneeSortParm"] = sortOrder == "Annee" ? "annee_desc" : "Annee";
+            ViewData["GenreSortParm"] = sortOrder == "Genre" ? "genre_desc" : "Genre";
+            ViewData["ProductSortParm"] = sortOrder == "Producteur" ? "product_desc" : "Producteur";
+            ViewData["ActSortParm"] = sortOrder == "Acteurs" ? "act_desc" : "Acteurs";
+            ViewData["FiltreActuel"] = searchString;
+
+            var films = from f in _contexte.Films
+                           select f;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                films = films.Where(f => f.Titre.Contains(searchString)
+                                       ||f.Annee.ToString().Contains(searchString)
+                                       ||f.Genre.ToString().Contains(searchString)
+                                       ||f.Producteur.Contains(searchString)
+                                       ||f.Acteurs.Contains(searchString));
             }
-
-            
-            else
-
+            if (!String.IsNullOrEmpty(sortOrder))
+            {
+                switch (sortOrder)
+                {
+                    case "titre_desc":
+                        films = films.OrderByDescending(f => f.Titre);
+                        break;
+                    case "Annee":
+                        films = films.OrderBy(f => f.Annee);
+                        break;
+                    case "annee_desc":
+                        films = films.OrderByDescending(f => f.Annee);
+                        break;
+                      case "Genre":
+                        films = films.OrderBy(f => f.Genre);
+                        break;
+                    case "genre_desc":
+                        films = films.OrderByDescending(f => f.Genre);
+                        break;
+                    case "Producteur":
+                        films = films.OrderBy(f => f.Producteur);
+                        break;
+                    case "product_desc":
+                        films = films.OrderByDescending(f => f.Producteur);
+                        break;
+                    case "Acteurs":
+                        films = films.OrderBy(f => f.Acteurs);
+                        break;
+                    case "act_desc":
+                        films = films.OrderByDescending(f => f.Acteurs);
+                        break;
+                    default:
+                        films = films.OrderBy(f => f.Titre);
+                        break;
+                }
+                ObservableCollection<ModeleVueFilm> Films = new ObservableCollection<ModeleVueFilm>();
+                foreach (Film f in films)
+                {
+                    Films.Add(new ModeleVueFilm { IdFilm = f.Id, Titre = f.Titre, Annee = f.Annee, Genre = f.Genre, Producteur = f.Producteur, Acteurs = f.Acteurs });
+                }
+                return View(Films);
+            } else
+           
             return View(modele);
 
         }
@@ -121,7 +180,7 @@ namespace WatchList.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Titre,Annee,Genre")] Film film)
+        public async Task<IActionResult> Create([Bind("Id,Titre,Annee,Genre,Producteur,Acteurs")] Film film)
         {
             if (ModelState.IsValid)
             {
@@ -153,7 +212,7 @@ namespace WatchList.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Titre,Annee,Genre")] Film film)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Titre,Annee,Genre,Producteur,Acteurs")] Film film)
         {
             if (id != film.Id)
             {

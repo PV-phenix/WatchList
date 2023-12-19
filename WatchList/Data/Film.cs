@@ -9,6 +9,8 @@ namespace WatchList.Data
         public string Titre { get; set; }
         public int Annee { get; set; }
         public string Genre {  get; set; }
+        public string Producteur { get; set; }
+        public string Acteurs { get; set; }
 
 
 

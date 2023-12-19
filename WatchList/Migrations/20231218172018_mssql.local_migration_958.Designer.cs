@@ -12,8 +12,8 @@ using WatchList.Data;
 namespace WatchList.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231211142138_mssql.local_migration_587")]
-    partial class mssqllocal_migration_587
+    [Migration("20231218172018_mssql.local_migration_958")]
+    partial class mssqllocal_migration_958
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -239,10 +239,18 @@ namespace WatchList.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Acteurs")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Annee")
                         .HasColumnType("int");
 
                     b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Producteur")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -295,6 +303,10 @@ namespace WatchList.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdFilm"));
 
+                    b.Property<string>("Acteurs")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Annee")
                         .HasColumnType("int");
 
@@ -309,6 +321,9 @@ namespace WatchList.Migrations
 
                     b.Property<bool>("PresentDansListe")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Producteur")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Titre")
                         .HasColumnType("nvarchar(max)");

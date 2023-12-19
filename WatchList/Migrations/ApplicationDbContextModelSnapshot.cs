@@ -236,10 +236,18 @@ namespace WatchList.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Acteurs")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Annee")
                         .HasColumnType("int");
 
                     b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Producteur")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -292,6 +300,9 @@ namespace WatchList.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdFilm"));
 
+                    b.Property<string>("Acteurs")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Annee")
                         .HasColumnType("int");
 
@@ -307,7 +318,11 @@ namespace WatchList.Migrations
                     b.Property<bool>("PresentDansListe")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Producteur")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Titre")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Vu")
