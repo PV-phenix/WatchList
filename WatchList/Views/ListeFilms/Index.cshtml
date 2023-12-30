@@ -5,7 +5,6 @@
 }
 
 <h1>Films empruntés</h1>
-
 <table class="table">
     <thead>
         <tr>
@@ -55,9 +54,19 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Vu)
-            </td>
+                <button id="@item.IdFilm" data-val="@item.Vu" class="btn">
+                        @(item.Vu ? " - " : " + ")
+                 </button>
+            </td>   
             <td>
-                @Html.DisplayFor(modelItem => item.Note)
+                <form method="post" id="NoteFormId">
+                        <button asp-controller="Home" asp-action="Index" type="submit" class="btn_note" id="@item.IdFilm" data-val="@item.Note" >
+                            Notez
+                        </button>
+                        <input type="text" id="NoteInputId" class="NoteInput" onblur="Selection" value="@item.Note" size="1" alt="Note"
+                               asp-controller="ListeFilms" asp-action="Index">
+                </form>
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Commentaire)
@@ -66,3 +75,54 @@
 }
     </tbody>
 </table>
+@section Scripts 
+{
+    <script>
+        jQuery(document).ready(function () {
+            $('.btn').click
+            (function (e) 
+                {
+                    var btn = $(this);
+                    var id= btn.attr('id');
+                    var valFilm = btn.attr('data-val') == "True" ? 1 : 0;
+                    $.get('/ListeFilms/AvezVousVu?id=' + id + '&val=' + valFilm,
+                            function (data) 
+                            {
+                                if (data == 0) 
+                                {
+                                btn.attr('data-val', 'False');
+                                    btn.html(' + ');
+                                }
+                                else if (data == 1) 
+                                {
+                                btn.attr('data-val', 'True');
+                                    btn.html(' - ');
+                                }
+                            }
+                     );
+
+                });
+            $('.btn_note').click
+            (function(e) 
+                {
+                    var btn_note = $(this);
+                    var id = btn_note.attr('id');
+                    var input = document.getElementById('NoteInputId')[id - 1];
+                    var val = input.value;
+                    var val_1 = 3;
+                    $.get('/ListeFilms/AjoutNote?id=' + id + '&val=' + val,
+                        function (data) 
+                        {
+                            if (data != '0') 
+                            {
+                                $("#NoteInputId").attr('value', data);
+                                $("#NoteInputId").html(data);
+                            }
+                        }
+                    );
+                }
+            );
+        });
+
+    </script>
+}

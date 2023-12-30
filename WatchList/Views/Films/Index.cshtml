@@ -12,11 +12,20 @@
 
 <form asp-controller="Films" asp-action="Index">
     <p>
-        Titre: <input type="text" name="SearchString" />
+        Recherche filtrée: <input type="text" name="SearchString" />
+       <select data-val="true" data-val-required="Indiquer le champ à filtrer." id="SelectFilter" name="SelectFilter">
+            <option value="">Choisir le filtre</option>
+            <option selected="selected">Titre</option>
+            <option>Année</option>
+            <option>Genre</option>
+            <option>Producteur</option>
+            <option>Acteur</option>
+        </select>
         <input type="submit" value="Filtrer" />
         <a asp-action="Index"> Retour vers la liste complète des films</a>
     </p>
 </form>
+
 
 <table class="table">
     <thead>

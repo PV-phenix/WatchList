@@ -38,7 +38,7 @@ namespace WatchList.Controllers
         private Task<Utilisateur> GetCurrentUserAsync() => _gestionnaire.GetUserAsync(HttpContext.User);
 
         // GET: Films
-        public async Task<IActionResult> Index(string sortOrder, string? searchString)
+        public async Task<IActionResult> Index(string sortOrder, string? searchString,string SelectFilter)
         {
 
             var idUtilisateur = await RecupererIdUtilisateurCourant();
@@ -73,7 +73,20 @@ namespace WatchList.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                var model = await _contexte.Films.Where(s => s.Titre.Contains(searchString)).ToListAsync();
+
+                var model = SelectFilter switch
+                {
+                    "Titre" => await _contexte.Films.Where(s => s.Titre.Contains(searchString)).ToListAsync(),
+                    "Année" => await _contexte.Films.Where(s => s.Annee.ToString().Contains(searchString)).ToListAsync(),
+                    "Genre" => await _contexte.Films.Where(s => s.Genre.Contains(searchString)).ToListAsync(),
+                    "Producteur" => await _contexte.Films.Where(s => s.Producteur.Contains(searchString)).ToListAsync(),
+                    "Acteur" => await _contexte.Films.Where(s => s.Acteurs.Contains(searchString)).ToListAsync(),
+                    _ => await _contexte.Films.Where(s => s.Titre.Contains(searchString)).ToListAsync()
+                };
+                
+                
+                
+                //var model = await _contexte.Films.Where(s => s.Titre.Contains(searchString)).ToListAsync();
 
                 ObservableCollection<ModeleVueFilm> Searchfilms = new ObservableCollection<ModeleVueFilm>();
 
